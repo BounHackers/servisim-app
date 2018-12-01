@@ -3,6 +3,8 @@ package com.bounhackers.wowservice
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.bounhackers.wowservice.login.LoginFragment
+import com.bounhackers.wowservice.mapscreen.MapScreenFragment
+import com.bounhackers.wowservice.register.RegisterFragment
 import com.bounhackers.wowservice.splash.SplashFragment
 
 class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListener,
@@ -16,7 +18,7 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListene
     }
 
     override fun onSplashTimerEnd() {
-        changeScreen(AppScreenState.LOGIN)
+        changeScreen(AppScreenState.MAP)
     }
 
     enum class AppScreenState {
@@ -51,13 +53,19 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListene
                     .commit()
             }
             AppScreenState.REGISTER -> {
-
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.root_layout, RegisterFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit()
             }
             AppScreenState.CUSTOMER -> {
 
             }
             AppScreenState.MAP -> {
-
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.root_layout, MapScreenFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit()
             }
         }
     }

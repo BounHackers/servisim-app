@@ -5,7 +5,6 @@ object Model {
                       val name: String,
                       val location: String,
                       val username: String,
-                      val password: String,
                       val created_at: String,
                       val updated_at: String)
 
@@ -13,7 +12,6 @@ object Model {
                    val name: String,
                    val location: String,
                    val username: String,
-                   val password: String,
                    val parent_id: Long,
                    val created_at: String,
                    val updated_at: String)
@@ -21,12 +19,11 @@ object Model {
     data class Driver(val id: Long,
                       val school_id: Long,
                       val username: String,
-                      val password: String,
                       val created_at: String,
                       val updated_at: String)
 
     data class Route(val id: Long,
-                     val kid_id: Long,
+                     val driver_id: Long,
                      val created_at: String,
                      val updated_at: String)
 

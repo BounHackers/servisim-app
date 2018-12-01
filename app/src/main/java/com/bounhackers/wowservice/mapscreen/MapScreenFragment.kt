@@ -25,4 +25,10 @@ class MapScreenFragment : Fragment(), MapScreenContract.View {
         this.presenter = presenter
     }
 
+    companion object {
+        fun newInstance(): MapScreenFragment {
+            return MapScreenFragment()
+        }
+    }
+
 }
