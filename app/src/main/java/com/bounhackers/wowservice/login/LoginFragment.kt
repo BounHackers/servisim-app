@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment(), LoginContract.View {
 
-    private var presenter: LoginPresenter? = null
+    private var presenter: LoginContract.Presenter? = null
     private var onScreenChangeRequestedListener: OnScreenChangeRequestedListener? = null
 
 
@@ -81,7 +81,7 @@ class LoginFragment : Fragment(), LoginContract.View {
         presenter?.unsubscribe()
     }
 
-    fun setPresenter(presenter: LoginPresenter) {
+    fun setPresenter(presenter: LoginContract.Presenter) {
         this.presenter = presenter
     }
 

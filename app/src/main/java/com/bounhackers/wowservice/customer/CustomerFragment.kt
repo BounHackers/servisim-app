@@ -11,7 +11,7 @@ import com.bounhackers.wowservice.R
 
 class CustomerFragment : Fragment(), CustomerContract.View {
 
-    private var presenter: CustomerPresenter? = null
+    private var presenter: CustomerContract.Presenter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,7 +21,7 @@ class CustomerFragment : Fragment(), CustomerContract.View {
         return inflater.inflate(R.layout.fragment_customer, container, false)
     }
 
-    fun setPresenter(presenter: CustomerPresenter) {
+    fun setPresenter(presenter: CustomerContract.Presenter) {
         this.presenter = presenter
     }
 
