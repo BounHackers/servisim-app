@@ -1,10 +1,8 @@
 package com.bounhackers.wowservice.login
 
-import android.annotation.SuppressLint
 import com.bounhackers.wowservice.appservice.AppServiceInterface
-import com.bounhackers.wowservice.appservice.model.LoginModel
+import com.bounhackers.wowservice.appservice.schemas.Login
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Consumer
 
 class LoginPresenter(_view: LoginContract.View): LoginContract.Presenter {
 
@@ -15,7 +13,7 @@ class LoginPresenter(_view: LoginContract.View): LoginContract.Presenter {
     override fun login(username: String, password: String) {
         view.showLoginProgress()
         view.hideLoginError()
-        subscribers.add(service.parentLogin(LoginModel.LoginRequestBody(username, password))
+        subscribers.add(service.parentLogin(Login.LoginRequestBody(username, password))
             .subscribe({
                 view.onLoginSuccessful()
             }, {

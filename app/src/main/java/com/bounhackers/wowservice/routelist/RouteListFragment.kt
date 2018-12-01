@@ -19,9 +19,7 @@ class RouteListFragment : Fragment(), RouteListContract.View {
     ): View? {
         this.setPresenter(RouteListPresenter(this))
 
-        return TextView(activity).apply {
-            setText(R.string.hello_blank_fragment)
-        }
+        return inflater.inflate(R.layout.fragment_route_list, container, false)
     }
 
     override fun onResume() {

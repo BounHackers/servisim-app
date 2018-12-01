@@ -1,6 +1,6 @@
-package com.bounhackers.wowservice.appservice.model
+package com.bounhackers.wowservice.appservice.schemas
 
-object LoginModel {
+object Login {
     data class LoginRequestBody(val username: String, val password: String)
     data class LoginResponse(val token: String)
 }
