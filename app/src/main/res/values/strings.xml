@@ -8,4 +8,7 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="application_logo">Application Logo</string>
+    <string name="servisinizin_gelmesine">Servisinizin gelmesine</string>
+    <string name="var">var</string>
+    <string name="back">Back</string>
 </resources>

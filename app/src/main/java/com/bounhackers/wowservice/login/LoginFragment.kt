@@ -3,18 +3,21 @@ package com.bounhackers.wowservice.login
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import com.bounhackers.wowservice.R
+import com.bounhackers.wowservice.base.ProgressIndicatorInterface
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment(), LoginContract.View {
 
     private var presenter: LoginContract.Presenter? = null
     private var onScreenChangeRequestedListener: OnScreenChangeRequestedListener? = null
+    private var progressIndicatorInterface: ProgressIndicatorInterface? = null
 
 
     private fun onClickLogin(view: View?) {
@@ -27,19 +30,19 @@ class LoginFragment : Fragment(), LoginContract.View {
     }
 
     override fun showLoginError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        login_edittext_username.error = "Wrong username or password"
     }
 
     override fun hideLoginError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        login_edittext_username.error = null
     }
 
     override fun showLoginProgress() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressIndicatorInterface?.showProgress()
     }
 
     override fun hideLoginProgress() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressIndicatorInterface?.hideProgress()
     }
 
     override fun onLoginSuccessful() {
@@ -68,6 +71,9 @@ class LoginFragment : Fragment(), LoginContract.View {
             onScreenChangeRequestedListener = context
         } else {
             throw RuntimeException("Activity != OnScreenChangeRequestedListener -_-")
+        }
+        if(context is ProgressIndicatorInterface) {
+            progressIndicatorInterface = context
         }
     }
 

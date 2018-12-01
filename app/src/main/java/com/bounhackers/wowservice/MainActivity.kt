@@ -1,25 +1,20 @@
 package com.bounhackers.wowservice
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import com.bounhackers.wowservice.base.ProgressIndicatorInterface
+import com.bounhackers.wowservice.customer.CustomerFragment
 import com.bounhackers.wowservice.login.LoginFragment
 import com.bounhackers.wowservice.mapscreen.MapScreenFragment
 import com.bounhackers.wowservice.register.RegisterFragment
 import com.bounhackers.wowservice.splash.SplashFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListener,
-    LoginFragment.OnScreenChangeRequestedListener {
-    override fun onLoginSuccessful() {
-        changeScreen(AppScreenState.CUSTOMER)
-    }
-
-    override fun onRegisterClicked() {
-        changeScreen(AppScreenState.REGISTER)
-    }
-
-    override fun onSplashTimerEnd() {
-        changeScreen(AppScreenState.MAP)
-    }
+    LoginFragment.OnScreenChangeRequestedListener,
+    ProgressIndicatorInterface,
+    RegisterFragment.OnChangeScreenRequestListener {
 
     enum class AppScreenState {
         SPLASH,
@@ -38,6 +33,18 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListene
             switchFragment(state)
             this.screenState = state
         }
+    }
+
+    override fun onLoginSuccessful() {
+        changeScreen(AppScreenState.CUSTOMER)
+    }
+
+    override fun onRegisterClicked() {
+        changeScreen(AppScreenState.REGISTER)
+    }
+
+    override fun onSplashTimerEnd() {
+        changeScreen(AppScreenState.LOGIN)
     }
 
     private fun switchFragment(state: AppScreenState) {
@@ -59,7 +66,9 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListene
                     .commit()
             }
             AppScreenState.CUSTOMER -> {
-
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.root_layout, CustomerFragment.newInstance())
+                    .commit()
             }
             AppScreenState.MAP -> {
                 supportFragmentManager.beginTransaction()
@@ -77,6 +86,27 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListene
         supportFragmentManager.beginTransaction()
             .replace(R.id.root_layout, SplashFragment.newInstance())
             .commit()
+    }
+
+
+
+    override fun onRegisterBackPressed() {
+        changeScreen(AppScreenState.LOGIN)
+    }
+
+    override fun onRegisterSuccessful() {
+        changeScreen(AppScreenState.LOGIN)
+    }
+
+
+
+
+    override fun showProgress() {
+        main_progress_bar.visibility = View.VISIBLE
+    }
+
+    override fun hideProgress() {
+        main_progress_bar.visibility = View.GONE
     }
 
 }

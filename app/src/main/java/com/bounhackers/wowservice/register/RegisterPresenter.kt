@@ -10,7 +10,7 @@ class RegisterPresenter(_view: RegisterContract.View): RegisterContract.Presente
     private val service: AppServiceInterface = AppServiceInterface.create()
 
     override fun subscribe() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // empty
     }
 
     override fun unsubscribe() {

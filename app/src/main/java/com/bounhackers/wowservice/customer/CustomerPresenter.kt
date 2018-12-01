@@ -1,17 +1,16 @@
 package com.bounhackers.wowservice.customer
 
-import android.view.View
 import com.bounhackers.wowservice.appservice.AppServiceInterface
 import io.reactivex.disposables.CompositeDisposable
 
-class CustomerPresenter(_view: View): CustomerContract.Presenter {
-    private var view: View = _view
+class CustomerPresenter(_view: CustomerContract.View): CustomerContract.Presenter {
+    private var view: CustomerContract.View = _view
     private val subscriptions: CompositeDisposable = CompositeDisposable()
 
     private val service: AppServiceInterface = AppServiceInterface.create()
 
     override fun subscribe() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // empty
     }
 
     override fun unsubscribe() {

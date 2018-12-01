@@ -16,69 +16,69 @@ import java.util.concurrent.TimeUnit
 
 interface AppServiceInterface {
 
-    @POST("/parents/login")
+    @POST("/api/v1/parents/login")
     fun parentLogin(@Body requestBody: Login.LoginRequestBody): Observable<Login.LoginResponse>
 
-    @GET("/parents")
+    @GET("/api/v1/parents")
     fun getParentList(): Observable<List<Model.Parent>>
 
-    @GET("/parents/{id}")
+    @GET("/api/v1/parents/{id}")
     fun getParent(@Path("id") id: Long): Observable<Model.Parent>
 
-    @POST("/parents")
+    @POST("/api/v1/parents")
     fun registerParent(@Body requestBody: Parent.RegisterParentRequest): Observable<Model.Parent>
 
-    @DELETE("/parents/{id}")
+    @DELETE("/api/v1/parents/{id}")
     fun deleteParent(@Path("id") id: Long): Observable<Unit>
 
 
 
-    @GET("/kids")
+    @GET("/api/v1/kids")
     fun getKidList(): Observable<List<Model.Kid>>
 
-    @GET("/kids/{id}")
+    @GET("/api/v1/kids/{id}")
     fun getKid(@Path("id") id: Long): Observable<Model.Kid>
 
-    @POST("/kids")
+    @POST("/api/v1/kids")
     fun addKid(@Body requestBody: Kid.RegisterKidRequest): Observable<Model.Kid>
 
-    @DELETE("/kids/{id}")
+    @DELETE("/api/v1/kids/{id}")
     fun deleteKid(@Path("id") id: Long): Observable<Unit>
 
 
 
-    @GET("/drivers")
+    @GET("/api/v1/drivers")
     fun getDriverList(): Observable<List<Model.Driver>>
 
-    @GET("/drivers/{id}")
+    @GET("/api/v1/drivers/{id}")
     fun getDriver(@Path("id") id: Long): Observable<Model.Driver>
 
-    @POST("/drivers")
+    @POST("/api/v1/drivers")
     fun createDriver(@Body requestBody: Driver.CreateDriverRequest): Observable<Model.Driver>
 
-    @DELETE("/drivers/{id}")
+    @DELETE("/api/v1/drivers/{id}")
     fun deleteDriver(@Path("id") id: Long): Observable<Unit>
 
 
 
-    @GET("/routes")
+    @GET("/api/v1/routes")
     fun getRouteList(): Observable<List<Model.Route>>
 
-    @GET("/routes/{id}")
+    @GET("/api/v1/routes/{id}")
     fun getRoute(@Path("id") id: Long): Observable<Model.Route>
 
 
 
-    @GET("/schools")
+    @GET("/api/v1/schools")
     fun getSchoolList(): Observable<List<Model.School>>
 
-    @GET("/schools/{id}")
+    @GET("/api/v1/schools/{id}")
     fun getSchool(@Path("id") id: Long)
 
-    @POST("/schools")
+    @POST("/api/v1/schools")
     fun createSchool(@Body requestBody: School.CreateSchoolRequest)
 
-    @DELETE("/schools/{id}")
+    @DELETE("/api/v1/schools/{id}")
     fun deleteSchool(@Path("id") id: Long)
 
 

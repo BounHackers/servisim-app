@@ -2,7 +2,7 @@ package com.bounhackers.wowservice.customer
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +17,28 @@ class CustomerFragment : Fragment(), CustomerContract.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        setPresenter(CustomerPresenter(this))
+
         return inflater.inflate(R.layout.fragment_customer, container, false)
     }
 
-    fun setPresenter(presenter: CustomerContract.Presenter) {
+    private fun setPresenter(presenter: CustomerContract.Presenter) {
         this.presenter = presenter
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter?.subscribe()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter?.unsubscribe()
+    }
+
+    companion object {
+        fun newInstance(): CustomerFragment {
+            return CustomerFragment()
+        }
+    }
 }
