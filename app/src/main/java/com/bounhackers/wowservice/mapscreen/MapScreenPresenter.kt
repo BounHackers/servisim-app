@@ -64,12 +64,18 @@ class MapScreenPresenter(_view: MapScreenContract.View): MapScreenContract.Prese
             }
             .toList()
             .map {
-
+                val str = StringBuilder()
+                for (kid in it) {
+                    str.append(kid.kid_id)
+                        .append(",")
+                        .append(kid.late)
+                        .append(";")
+                }
                 service.updateRoute(Route.UpdateRouteRequest(
                     null,
                     null,
                     null,
-                    "[]"
+                    str.toString()
                 ))
             }
             .subscribe({

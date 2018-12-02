@@ -2,13 +2,17 @@ package com.bounhackers.wowservice.mapscreen
 
 
 import android.content.Context
+import android.location.Location
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
 import androidx.fragment.app.Fragment
 
 import com.bounhackers.wowservice.R
 import com.bounhackers.wowservice.appservice.schemas.Vehicle
+import com.bounhackers.wowservice.data.Model
+import com.bounhackers.wowservice.data.stores.LoggedInUserStore
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -23,6 +27,8 @@ class MapScreenFragment : Fragment(), MapScreenContract.View {
     private var onChangeScreenRequestedListener: OnChangeScreenRequestedListener? = null
     private var map: GoogleMap? = null
     private var carMarker: Marker? = null
+
+    private val loggedInUserStore: LoggedInUserStore = LoggedInUserStore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -97,6 +103,34 @@ class MapScreenFragment : Fragment(), MapScreenContract.View {
         map?.moveCamera(CameraUpdateFactory.newLatLng(latLng))
 
         carMarker = map?.addMarker(MarkerOptions().position(latLng))
+
+        val userLatLngStr: List<String> = (loggedInUserStore.getLoggedInEntity() as Model.Parent)
+            .location.split(";")
+        val userLatLng: LatLng = LatLng(userLatLngStr[0].toDouble(), userLatLngStr[1].toDouble())
+
+        val l1: Location = Location("")
+        val l2: Location = Location("")
+
+        l1.latitude = location.latitude.value
+        l1.longitude = location.longitude.value
+
+        l2.latitude = userLatLng.latitude
+        l2.longitude = userLatLng.longitude
+
+        val remaining: Int = (l1.distanceTo(l2) / 4000).toInt()
+
+        mapscreen_textview_remainingtime.text = getString(R.string.remaining_mins).format(remaining)
+
+        val schoolLocation = Location("")
+        schoolLocation.latitude = 41.086617
+        schoolLocation.longitude = 29.050002
+
+        if(l1.distanceTo(schoolLocation) < 150) {
+            Toast.makeText(context, "Çocuklarınız okula güvenle ulaştılar.", Toast.LENGTH_LONG)
+                .show()
+        }
+
+
     }
 
     fun setPresenter(presenter: MapScreenContract.Presenter) {
