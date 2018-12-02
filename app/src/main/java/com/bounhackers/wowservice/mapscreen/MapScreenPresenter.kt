@@ -3,21 +3,27 @@ package com.bounhackers.wowservice.mapscreen
 import android.util.Log
 import com.bounhackers.wowservice.Constants
 import com.bounhackers.wowservice.appservice.AppServiceInterface
+import com.bounhackers.wowservice.appservice.schemas.Route
+import com.bounhackers.wowservice.data.Model
+import com.bounhackers.wowservice.data.stores.LoggedInUserStore
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 class MapScreenPresenter(_view: MapScreenContract.View): MapScreenContract.Presenter {
 
-    private val subscribers: CompositeDisposable = CompositeDisposable()
+    private val subscriptions: CompositeDisposable = CompositeDisposable()
     private val view: MapScreenContract.View = _view
     private val service: AppServiceInterface = AppServiceInterface.create()
 
+    private val loggedInUserStore = LoggedInUserStore.getInstance()
+
     override fun subscribe() {
-        subscribers.add(Observable.interval(5, TimeUnit.SECONDS)
+        subscriptions.add(Observable.interval(5, TimeUnit.SECONDS)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -29,7 +35,7 @@ class MapScreenPresenter(_view: MapScreenContract.View): MapScreenContract.Prese
     }
 
     private fun refreshVehicleLoc() {
-        subscribers.add(service.getVehicleLoc(Constants.CAR_ID, Constants.ACCESS_TOKEN)
+        subscriptions.add(service.getVehicleLoc(Constants.CAR_ID, Constants.ACCESS_TOKEN)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -39,8 +45,45 @@ class MapScreenPresenter(_view: MapScreenContract.View): MapScreenContract.Prese
             }))
     }
 
+    override fun onClickLate() {
+        view.lateReceived()
+    }
+
+    override fun onClickWontCome() {
+        subscriptions.add(service.getKidList()
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .flatMap {
+                Observable.fromIterable(it)
+            }
+            .filter {
+                it.parent.id == (loggedInUserStore.getLoggedInEntity() as Model.Parent).id
+            }
+            .map {
+                Model.LateKids(it.id, -1)
+            }
+            .toList()
+            .map {
+
+                service.updateRoute(Route.UpdateRouteRequest(
+                    null,
+                    null,
+                    null,
+                    "[]"
+                ))
+            }
+            .subscribe({
+                view.wontComeReceived()
+            }, {
+                Log.e("Map Screen", "Error", it)
+            })
+        )
+
+
+    }
+
     override fun unsubscribe() {
-        subscribers.clear()
+        subscriptions.clear()
     }
 
     override fun attach(view: MapScreenContract.View) {

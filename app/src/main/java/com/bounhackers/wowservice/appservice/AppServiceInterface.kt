@@ -70,6 +70,9 @@ interface AppServiceInterface {
     @POST("/api/v1/routes")
     fun addRoute(@Body requestBody: Route.CreateRouteRequest): Observable<Model.Route>
 
+    @PUT("/api/v1/routes/{id}")
+    fun updateRoute(@Body requestBody: Route.UpdateRouteRequest): Observable<Model.Route>
+
     @DELETE("/api/v1/routes/{id}")
     fun deleteRoute(@Path("id") id: Long): Observable<Unit>
 

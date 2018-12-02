@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp">
         <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-                                                           android:layout_height="match_parent">
+                                                           android:layout_height="wrap_content">
             <TextView
                     android:text="@string/servisinizin_gelmesine"
                     android:layout_width="wrap_content"
@@ -47,13 +47,33 @@
                     android:text="@string/var"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/mapscreen_textview_remains" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/mapscreen_textview_remainingtime"
+                    android:id="@+id/mapscreen_textview_remains"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="8dp"/>
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/mapscreen_textview_remainingtime"/>
+            <Button
+                    android:text="@string/gelmeyece_im"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mapscreen_button_wontcome" android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/mapscreen_textview_remains"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toStartOf="@+id/mapscreen_button_late"/>
+            <Button
+                    android:text="@string/_5_dk_gecikece_im"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mapscreen_button_late" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/mapscreen_textview_remains"
+                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp" app:layout_constraintStart_toEndOf="@+id/mapscreen_button_wontcome"
+                    app:layout_constraintHorizontal_bias="0.5"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

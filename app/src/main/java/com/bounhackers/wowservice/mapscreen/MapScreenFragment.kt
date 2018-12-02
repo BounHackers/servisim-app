@@ -4,6 +4,7 @@ package com.bounhackers.wowservice.mapscreen
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 
 import com.bounhackers.wowservice.R
@@ -39,6 +40,14 @@ class MapScreenFragment : Fragment(), MapScreenContract.View {
             map = it
             map?.moveCamera(CameraUpdateFactory.zoomTo(10.0f))
         }
+
+        mapscreen_button_late.setOnClickListener {
+            presenter?.onClickLate()
+        }
+
+        mapscreen_button_wontcome.setOnClickListener {
+            presenter?.onClickWontCome()
+        }
     }
 
     override fun onAttach(context: Context?) {
@@ -71,6 +80,15 @@ class MapScreenFragment : Fragment(), MapScreenContract.View {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun wontComeReceived() {
+        mapscreen_button_late.visibility = View.GONE
+        mapscreen_button_wontcome.visibility = View.GONE
+    }
+
+    override fun lateReceived() {
+        mapscreen_button_late.isEnabled = false
     }
 
     override fun displayVehicleLocation(location: Vehicle.Location) {

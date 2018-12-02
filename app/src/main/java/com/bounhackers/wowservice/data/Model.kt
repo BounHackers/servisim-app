@@ -26,7 +26,11 @@ object Model {
     data class Route(val id: Long,
                      val driver: Driver,
                      val kids: List<Kid>,
-                     val startTime: Long)
+                     val startTime: Long,
+                     val late_kids: String?)
+
+    data class LateKids(val kid_id: Long,
+                        val late: Int)
 
     data class School(val id: Long,
                       val name: String,
