@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.bounhackers.wowservice.base.ProgressIndicatorInterface
 import com.bounhackers.wowservice.customer.CustomerFragment
+import com.bounhackers.wowservice.data.Model
 import com.bounhackers.wowservice.login.LoginFragment
 import com.bounhackers.wowservice.mapscreen.MapScreenFragment
 import com.bounhackers.wowservice.register.RegisterFragment
@@ -14,7 +15,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListener,
     LoginFragment.OnScreenChangeRequestedListener,
     ProgressIndicatorInterface,
-    RegisterFragment.OnChangeScreenRequestListener {
+    RegisterFragment.OnChangeScreenRequestListener,
+    CustomerFragment.OnClickChildListener {
 
     enum class AppScreenState {
         SPLASH,
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListene
     }
 
     override fun onLoginSuccessful() {
-        changeScreen(AppScreenState.CUSTOMER)
+        changeScreen(AppScreenState.MAP)
     }
 
     override fun onRegisterClicked() {
@@ -86,6 +88,11 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListene
         supportFragmentManager.beginTransaction()
             .replace(R.id.root_layout, SplashFragment.newInstance())
             .commit()
+    }
+
+
+    override fun onClickChild(kid: Model.Kid) {
+
     }
 
 

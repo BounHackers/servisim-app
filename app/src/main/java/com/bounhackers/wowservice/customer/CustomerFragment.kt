@@ -22,6 +22,7 @@ class CustomerFragment : Fragment(), CustomerContract.View {
 
     private var adapter: KidListAdapter? = null
     private var progressIndicatorInterface: ProgressIndicatorInterface? = null
+    private var onClickChildListener: OnClickChildListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +37,7 @@ class CustomerFragment : Fragment(), CustomerContract.View {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = KidListAdapter(kids, view.context)
+        adapter?.setOnKidClickListener { onClickChildListener?.onClickChild(it) }
 
         customer_recyclerview_root.layoutManager = LinearLayoutManager(view.context)
         customer_recyclerview_root.adapter = adapter
@@ -67,7 +69,8 @@ class CustomerFragment : Fragment(), CustomerContract.View {
     }
 
     override fun addChildSuccessful(kid: Model.Kid) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.kids.add(kid)
+        adapter?.notifyItemInserted(this.kids.size - 1)
     }
 
     override fun showProgress() {
@@ -83,6 +86,15 @@ class CustomerFragment : Fragment(), CustomerContract.View {
         if(context is ProgressIndicatorInterface) {
             progressIndicatorInterface = context
         }
+        if(context is OnClickChildListener) {
+            onClickChildListener = context
+        } else {
+            throw RuntimeException("Context != OnClickChildListener")
+        }
+    }
+
+    interface OnClickChildListener {
+        fun onClickChild(kid: Model.Kid)
     }
 
     companion object {

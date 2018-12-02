@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.listitem_route_list.view.*
 class KidListAdapter(val items: ArrayList<Model.Kid>, val context: Context):
     RecyclerView.Adapter<KidListAdapter.KidViewHolder>() {
 
+    private var onKidClickListener: OnKidClickListener? = null
+
     override fun getItemCount(): Int {
         return items.size
     }
@@ -23,7 +25,26 @@ class KidListAdapter(val items: ArrayList<Model.Kid>, val context: Context):
     }
 
     override fun onBindViewHolder(holder: KidViewHolder, position: Int) {
+        holder.view.setOnClickListener {
+            onKidClickListener?.onKidClick(items[position])
+        }
         holder.schoolText?.text = items[position].schools.getOrNull(position)?.name
+    }
+
+    fun setOnKidClickListener(onKidClickListener: OnKidClickListener) {
+        this.onKidClickListener = onKidClickListener
+    }
+
+    fun setOnKidClickListener(onKidClickListener: (kid: Model.Kid) -> Unit) {
+        this.onKidClickListener = object: OnKidClickListener {
+            override fun onKidClick(kid: Model.Kid) {
+                onKidClickListener(kid)
+            }
+        }
+    }
+
+    interface OnKidClickListener {
+        fun onKidClick(kid: Model.Kid)
     }
 
     class KidViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -31,6 +52,7 @@ class KidListAdapter(val items: ArrayList<Model.Kid>, val context: Context):
         val schoolText = itemView.route_textview_school
         val dateText = itemView.route_textview_date
         val driverText = itemView.route_textview_driver_name
+        val view = itemView
     }
 
 }
