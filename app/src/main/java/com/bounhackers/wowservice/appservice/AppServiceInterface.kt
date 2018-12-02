@@ -67,21 +67,32 @@ interface AppServiceInterface {
     @GET("/api/v1/routes/{id}")
     fun getRoute(@Path("id") id: Long): Observable<Model.Route>
 
+    @POST("/api/v1/routes")
+    fun addRoute(@Body requestBody: Route.CreateRouteRequest): Observable<Model.Route>
+
+    @DELETE("/api/v1/routes/{id}")
+    fun deleteRoute(@Path("id") id: Long): Observable<Unit>
+
 
 
     @GET("/api/v1/schools")
     fun getSchoolList(): Observable<List<Model.School>>
 
     @GET("/api/v1/schools/{id}")
-    fun getSchool(@Path("id") id: Long)
+    fun getSchool(@Path("id") id: Long): Observable<Model.School>
 
     @POST("/api/v1/schools")
-    fun createSchool(@Body requestBody: School.CreateSchoolRequest)
+    fun createSchool(@Body requestBody: School.CreateSchoolRequest): Observable<Model.School>
 
     @DELETE("/api/v1/schools/{id}")
-    fun deleteSchool(@Path("id") id: Long)
+    fun deleteSchool(@Path("id") id: Long): Observable<Unit>
 
 
+    @GET("/api/v1/mercedes/vehicles")
+    fun getVehicles(@Query("access_token") accessToken: String): Observable<List<Model.Vehicle>>
+
+    @GET("/api/v1/mercedes/vehicle_location/{id}")
+    fun getVehicleLoc(@Path("id") id: String, @Query("access_token") accessToken: String): Observable<Vehicle.Location>
 
     companion object Factory {
         fun create(): AppServiceInterface {

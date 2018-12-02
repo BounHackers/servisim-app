@@ -28,7 +28,8 @@ class KidListAdapter(val items: ArrayList<Model.Kid>, val context: Context):
         holder.view.setOnClickListener {
             onKidClickListener?.onKidClick(items[position])
         }
-        holder.schoolText?.text = items[position].schools.getOrNull(position)?.name
+        holder.schoolText?.text = items[position].name
+        holder.dateText?.text = items[position].schools.getOrNull(0)?.name
     }
 
     fun setOnKidClickListener(onKidClickListener: OnKidClickListener) {

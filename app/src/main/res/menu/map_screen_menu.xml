@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_kid_list"
+          android:title="@string/children"
+          android:icon="@drawable/ic_people_white_24dp" />
+</menu>

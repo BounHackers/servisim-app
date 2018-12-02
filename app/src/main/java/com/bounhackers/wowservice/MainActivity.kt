@@ -16,7 +16,8 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListene
     LoginFragment.OnScreenChangeRequestedListener,
     ProgressIndicatorInterface,
     RegisterFragment.OnChangeScreenRequestListener,
-    CustomerFragment.OnClickChildListener {
+    CustomerFragment.OnClickChildListener,
+    MapScreenFragment.OnChangeScreenRequestedListener{
 
     enum class AppScreenState {
         SPLASH,
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListene
             AppScreenState.CUSTOMER -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.root_layout, CustomerFragment.newInstance())
+                    .addToBackStack(null)
                     .commit()
             }
             AppScreenState.MAP -> {
@@ -96,9 +98,13 @@ class MainActivity : AppCompatActivity(), SplashFragment.OnSplashTimerEndListene
     }
 
 
+    override fun onKidListActionClicked() {
+        changeScreen(AppScreenState.CUSTOMER)
+    }
+
 
     override fun onRegisterBackPressed() {
-        changeScreen(AppScreenState.LOGIN)
+        onBackPressed()
     }
 
     override fun onRegisterSuccessful() {

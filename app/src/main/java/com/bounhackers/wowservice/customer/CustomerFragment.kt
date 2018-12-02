@@ -29,7 +29,7 @@ class CustomerFragment : Fragment(), CustomerContract.View {
         savedInstanceState: Bundle?
     ): View? {
         setPresenter(CustomerPresenter(this))
-
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_customer, container, false)
     }
 

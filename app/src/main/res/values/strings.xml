@@ -11,4 +11,7 @@
     <string name="servisinizin_gelmesine">Servisinizin gelmesine</string>
     <string name="var">var</string>
     <string name="back">Back</string>
+    <string name="ad_soyad">Ad Soyad</string>
+    <string name="add_kid">Add Kid</string>
+    <string name="children">Children</string>
 </resources>

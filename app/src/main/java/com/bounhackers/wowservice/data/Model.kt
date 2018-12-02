@@ -24,13 +24,17 @@ object Model {
                       val updated_at: String)
 
     data class Route(val id: Long,
-                     val driver_id: Long,
-                     val created_at: String,
-                     val updated_at: String)
+                     val driver: Driver,
+                     val kids: List<Kid>,
+                     val startTime: Long)
 
     data class School(val id: Long,
                       val name: String,
                       val location: String,
                       val created_at: String,
                       val updated_at: String)
+
+    data class Vehicle(val id: String,
+                       val licenseplate: String,
+                       val finorvin: String)
 }

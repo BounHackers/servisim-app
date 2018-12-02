@@ -32,7 +32,11 @@ class RegisterFragment : Fragment(), RegisterContract.View {
         }
 
         register_button_register.setOnClickListener {
-            TODO("presenter method not bound")
+            presenter?.register(
+                register_edittext_namesurname?.text.toString(),
+                register_edittext_username?.text.toString(),
+                register_edittext_password?.text.toString()
+            )
         }
     }
 
@@ -53,6 +57,10 @@ class RegisterFragment : Fragment(), RegisterContract.View {
     override fun onPause() {
         super.onPause()
         presenter?.unsubscribe()
+    }
+
+    override fun onRegisterSuccessful() {
+        onChangeScreenRequestListener?.onRegisterSuccessful()
     }
 
     private fun setPresenter(presenter: RegisterContract.Presenter) {
