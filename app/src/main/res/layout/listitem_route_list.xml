@@ -10,6 +10,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:src="@mipmap/ic_launcher"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"/>
 
@@ -26,20 +27,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="4dp"
-                android:textSize="20sp"/>
+                android:textSize="20sp" android:text="-"/>
 
         <TextView
                 android:id="@+id/route_textview_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="4dp"
-                android:textSize="20sp"/>
+                android:textSize="20sp" android:text="-"/>
 
         <TextView
                 android:id="@+id/route_textview_driver_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"/>
+                android:textSize="20sp" android:text="-"/>
 
     </LinearLayout>
 

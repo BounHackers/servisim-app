@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 interface AppServiceInterface {
 
     @POST("/api/v1/parents/login")
-    fun parentLogin(@Body requestBody: Login.LoginRequestBody): Observable<Login.LoginResponse>
+    fun parentLogin(@Body requestBody: Login.LoginRequestBody): Observable<Model.Parent>
 
     @GET("/api/v1/parents")
     fun getParentList(): Observable<List<Model.Parent>>
